@@ -1,0 +1,1 @@
+Aqui comenzara mi ruta de aprendizaje de typescript, donde integrare proyectos para reforzar su seguirdad iniciando en react y node js.
