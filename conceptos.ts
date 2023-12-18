@@ -153,7 +153,7 @@ sayHiFromFunction(() =>{
     return Math.random()
 })
 */
-
+/*
 
 const sayHiFromFunction = (fn: (name: string) => void) => { //void es porque no devuelve nada. no importa lo que devuelva. si pongo string, deberia retornar un string
     fn("pepe")
@@ -164,3 +164,194 @@ const sayHi = (name: string) =>{
 }
 
 sayHiFromFunction(sayHi)
+*/
+
+
+
+//-----------------------------------------------------------------------
+
+//Tipar Arrow Functions
+/*
+const sumar = (a: number, b: number): number => { //recuerda siempre intentar evitar tiparlo porque normalmente lo infiere, osea sabe que tipo es
+    return a + b
+}
+
+
+const restar:  (a: number, b: number) => number = (a, b) => {
+    return a - b
+}
+*/
+
+
+
+
+
+//Funciones que sabes nunca van a devolver nada
+//never
+/*
+function throwError(message: string): never {
+    throw new Error(message)
+}
+*/
+
+
+
+
+// !important Las funciones no tienen inferencia
+// inferencia funciones anonimas segun el contexto
+
+//hay veces que la inferencia si que funciona
+
+/*
+const avengers = ["spidey", "hulk", "avengers"]
+
+avengers.forEach(avenger =>{
+    console.log(avenger.toUpperCase())
+})
+
+const avengers = ["spidey", "hulk", "avengers"]
+
+avengers.forEach(function (avenger) {
+    console.log(avenger.toUpperCase())
+})
+*/
+
+//--------------------------------------------------------------
+
+//Objetos
+/*
+let hero = {
+    name: "thor",
+    age: 1500
+}
+
+hero.power
+
+
+function createHero(name: string, age: number){
+    return {name, age}
+}
+
+const thor = createHero("thor", 1500)
+//estamos haciendo lo mismo?, no sabemos si son del mismo tipo
+
+*/
+
+
+//Type Alias
+//creando nuestro TIPO, "PascalCase"
+/*
+type Hero = {
+    name: string
+    age: number
+}
+let hero: Hero = {
+    name: "thor",
+    age: 1500
+}
+
+function createHero(name: string, age: number): Hero{
+    return {name, age } // no podemos agregar nada ahi al return como un boolean. isActive: true
+}
+
+const thor = createHero("Thor", 1500)
+*/
+
+
+/*
+type Hero = {
+    name: string
+    age: number
+}
+let hero: Hero = {
+    name: "thor",
+    age: 1500
+}
+
+function createHero(hero: Hero): Hero{
+    const { name, age} = hero
+    return {name, age } // no podemos agregar nada ahi al return como un boolean. isActive: true
+}
+
+const thor = createHero({name:"Thor", age: 1500})
+*/
+
+
+// Optional properties
+/*
+type Hero = {
+    id?: number
+    name: string
+    age: number
+    isActive?: boolean
+}
+let hero: Hero = {
+    name: "thor",
+    age: 1500
+}
+
+function createHero(hero: Hero): Hero{
+    const {name, age} = hero
+    return {name, age } 
+}
+
+const thor = createHero({name:"Thor", age: 1500})
+
+//console.log( thor.isActive) //--> True
+
+//thor.id?.toString()
+
+thor.id = 454135143513513513513
+*/
+
+/*
+type Hero = {
+    readonly id?: number //recordar que el readonly no hace que sea inmutable, en js sigue pudiendose cambiar, lo que hace es solo avisarnos en ts de un error
+    name: string
+    age: number
+    isActive?: boolean
+}
+let hero: Hero = {
+    name: "thor",
+    age: 1500
+}
+
+function createHero(hero: Hero): Hero{
+    const {name, age} = hero
+    return {name, age } 
+}
+
+const thor = createHero({name:"Thor", age: 1500})
+
+//console.log( thor.isActive) //--> True
+
+//thor.id?.toString()
+
+thor.id = 454135143513513513513
+
+*/
+/*
+type Hero = {
+    id?: number //recordar que el readonly no hace que sea inmutable, en js sigue pudiendose cambiar, lo que hace es solo avisarnos en ts de un error
+    name: string
+    age: number
+    isActive?: boolean
+}
+let hero: Hero = {
+    name: "thor",
+    age: 1500
+}
+
+function createHero(hero: Hero): Hero{
+    const {name, age} = hero
+    return {name, age } 
+}
+
+const thor = Object.freeze(createHero({name:"Thor", age: 1500}))
+
+//console.log( thor.isActive) //--> True
+
+//thor.id?.toString()
+
+thor.id = 454135143513513513513
+*/
