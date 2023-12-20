@@ -355,3 +355,337 @@ const thor = Object.freeze(createHero({name:"Thor", age: 1500}))
 
 thor.id = 454135143513513513513
 */
+
+
+
+
+
+/*
+type Hero = {
+    id?: string
+    name: string
+    age: number
+    isActive?: boolean
+}
+let hero: Hero = {
+    name: "thor",
+    age: 1500
+}
+
+function createHero(hero: Hero): Hero{
+    const {name, age} = hero
+    return {
+        id: crypto.randomUUID(),
+        name, 
+        age,
+        isActive: true
+     } 
+}
+
+*/
+
+
+//creacion de tipos para usarlo dentro de otros tipos
+
+
+// template union types
+/*
+type HexadecimalColor = `#${string}`
+
+const color: HexadecimalColor = "0033ff" 
+const color2: HexadecimalColor = "#0033ff" //hexadecimales
+
+*/
+
+
+
+
+
+/*
+
+type HeroId = `${string}-${string}-${string}-${string}-${string}`
+
+
+type Hero = {
+    id?: HeroId
+    name: string
+    age: number
+    isActive?: boolean
+}
+let hero: Hero = {
+    name: "thor",
+    age: 1500
+}
+
+function createHero(hero: Hero): Hero{
+    const {name, age} = hero
+    return {
+        id: crypto.randomUUID(),
+        name, 
+        age,
+        isActive: true
+     } 
+}
+
+
+const thor = createHero({name: "thor", age: 1500})
+
+//valor por defecto
+
+thor.id ?? "no tiene id"
+
+*/
+
+
+
+
+//Union Types
+
+
+/*
+let annn: number | string //esta uniendo tipos puede ser o number o string
+
+annn = 2
+
+
+let ann: string | 3 //esta uniendo tipos puede ser o number o string
+
+ann = 2
+*/
+
+/*
+const enableAnimationDuration: boolean | number = true //por defecto 500ms
+
+const enableAnimationDuration: boolean | number = 200 //200ms
+*/
+
+
+
+/*
+type HeroId = `${string}-${string}-${string}-${string}-${string}`
+
+type HeroPowerScale = "local" | "planetary" | "galactic" | "universal" | "multiversal"
+
+
+
+type Hero = {
+    readonly id?: HeroId
+    name: string
+    age: number
+    isActive?: boolean
+    powerScale?: HeroPowerScale
+}
+let hero: Hero = {
+    name: "thor",
+    age: 1500
+}
+
+function createHero(hero: Hero): Hero{
+    const {name, age} = hero
+    return {
+        id: crypto.randomUUID(),
+        name, 
+        age,
+        isActive: true
+     } 
+}
+
+
+const thor = createHero({name: "thor", age: 1500})
+
+
+
+thor.powerScale = "galactic"
+
+*/
+
+
+// ---------------- Intersection types ----------------
+
+/*
+type HeroId = `${string}-${string}-${string}-${string}-${string}`
+type HeroPowerScale = "local" | "planetary" | "galactic" | "universal" | "multiversal"
+
+type HeroBasicInfo = {
+    name: string
+    age: number
+}
+
+type HeroProperties = {
+    readonly id?: HeroId
+    isActive?: boolean
+    powerScale?: HeroPowerScale
+}
+
+type Hero = HeroBasicInfo & HeroProperties
+
+
+let hero: Hero = {
+    name: "thor",
+    age: 1500
+}
+
+function createHero(input: HeroBasicInfo): Hero{
+    const {name, age} = input
+    return {
+        id: crypto.randomUUID(),
+        name, 
+        age,
+        isActive: true
+     } 
+}
+
+
+const thor = createHero({name: "thor", age: 1500})
+
+
+thor.powerScale = "planetary"
+
+*/
+
+
+
+
+// ---------- type indexing ----------
+/*
+type HeroProperties = {
+    isActive: boolean
+    address: {
+        planet: string
+        city: string
+    }
+}
+
+const adressHero: HeroProperties["address"] = {
+    planet: "Earth",
+    city: "madrid"
+}
+*/
+
+
+// ---------- Type from value ----------------
+/*
+const adress = {
+    planet: "Earth",
+    city: "Madrid"
+}
+
+type Address = typeof adress
+
+const addressTwitch: Address = {
+    planet: "mars",
+    city: "Twitch"
+}
+*/
+// el typeof en ts tiene mas poder porque te permite crear tipos a partir de codigo que ya tengas
+
+
+
+//----------------- Type from function return ---------------
+/*
+function createAddress() {
+    return{
+        planet: "Tierra",
+        city: "Barcelona"
+    }
+}
+
+type Address = ReturnType<typeof createAddress>
+*/
+
+
+// --------------- Arrays -------------------------------------
+/*
+const languajes: string[] = []
+
+languajes.push("JavaScript")
+languajes.push("JavaScript")
+languajes.push("JavaScript")
+languajes.push("JavaScript")
+languajes.push(3)
+*/
+
+/*
+const languajes: Array<string> = []
+
+languajes.push("JavaScript")
+languajes.push("JavaScript")
+languajes.push("JavaScript")
+languajes.push("JavaScript")
+languajes.push(3)
+*/
+
+/*
+const languajes: (string | number)[] = []
+
+languajes.push("JavaScript")
+languajes.push("JavaScript")
+languajes.push("JavaScript")
+languajes.push("JavaScript")
+languajes.push(3)
+languajes.push(true)
+*/
+
+
+/*
+type HeroId = `${string}-${string}-${string}-${string}-${string}`
+type HeroPowerScale = "local" | "planetary" | "galactic" | "universal" | "multiversal"
+
+type HeroBasicInfo = {
+    id?: number,
+    name: string
+    age: number
+}
+
+
+const herosWithBasicInfo: HeroBasicInfo[] = []
+
+*/
+
+/*
+[
+    ["x", "o", "x"],  // <-- string[]
+    ["o", "x", "o"],  // <-- string[]
+    ["x", "", "o"]    // <-- string[]
+]
+
+*/
+
+type CellValue = "x" | "o" | ""
+type GameBoard = [
+    [CellValue, CellValue, CellValue],
+    [CellValue, CellValue, CellValue],
+    [CellValue, CellValue, CellValue]
+] // ---------- Tuples -----------------
+
+
+/*
+const gameBoard: CellValue[][] = [
+    ["x", "o", "x"],  
+    ["o", "x", "o"],  
+    ["x", "", "o"] 
+]*/
+
+const gameBoard: GameBoard = [
+    ["x", "o", "x"],  
+    ["o", "x", "o"],  
+    ["x", "", "o"] 
+]
+
+//gameBoard[0][1] = "1312312312321321"
+//gameBoard[0][1] = "x"
+
+
+
+/*
+//tuple
+
+type State = [string, (newName: string) => void]
+
+const [hero, setHero]: State = useState("thor")
+
+*/
+
+type RGB = [number, number, number]
+
+const rgb: RGB = [2, 3, 4]
